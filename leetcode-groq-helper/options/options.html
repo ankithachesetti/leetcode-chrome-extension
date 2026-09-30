@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LeetCode Groq Helper options</title>
+  <link rel="stylesheet" href="../shared/ui.css">
+</head>
+<body class="options">
+  <main class="sheet">
+    <h1>LeetCode Groq Helper</h1>
+
+    <section>
+      <h2>Groq API key</h2>
+      <p class="dim">The key stays in <code>chrome.storage.local</code> on this machine and is only sent to api.groq.com.
+        <a href="https://console.groq.com/keys" target="_blank" rel="noreferrer">Get a free key</a>.</p>
+      <div class="field">
+        <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="gsk_...">
+        <label class="inline"><input id="showKey" type="checkbox"> Show</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Models</h2>
+      <p class="dim">Choose from your own limits page:
+        <a href="https://console.groq.com/settings/limits" target="_blank" rel="noreferrer">console.groq.com/settings/limits</a>.
+        Type any model ID, or pick from the suggestions.</p>
+      <label for="model">Model</label>
+      <input id="model" list="models" spellcheck="false">
+      <label for="fallbackModel">Fallback model (used automatically when the first one is rate-limited; leave empty to disable)</label>
+      <input id="fallbackModel" list="models" spellcheck="false">
+      <datalist id="models">
+        <option value="llama-3.3-70b-versatile">
+        <option value="llama-3.1-8b-instant">
+        <option value="openai/gpt-oss-20b">
+        <option value="openai/gpt-oss-120b">
+      </datalist>
+      <div class="btn-row">
+        <button id="loadModels" class="btn ghost" type="button">Load models from my key</button>
+        <span id="modelsMsg" class="small dim"></span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Behaviour</h2>
+      <label for="language">Default language</label>
+      <select id="language"></select>
+
+      <label for="temperature">Temperature (solution, debug and retry are capped at 0.2)</label>
+      <input id="temperature" type="number" min="0" max="1" step="0.05">
+
+      <label for="maxOutputTokens">Max output tokens per request</label>
+      <input id="maxOutputTokens" type="number" min="256" max="8192" step="128">
+
+      <label for="tpmCap">Tokens-per-minute cap of your model</label>
+      <input id="tpmCap" type="number" min="1000" step="500">
+      <p class="small dim">Used to trim long problems and warn before a request that may exceed the cap.</p>
+    </section>
+
+    <div class="btn-row">
+      <button id="save" class="btn" type="button">Save</button>
+      <button id="clear" class="btn ghost" type="button">Clear cached answers and history</button>
+      <span id="saveMsg" class="small dim" role="status"></span>
+    </div>
+  </main>
+  <script type="module" src="options.js"></script>
+</body>
+</html>

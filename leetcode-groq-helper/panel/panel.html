@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LeetCode Groq Helper</title>
+  <link rel="stylesheet" href="../shared/ui.css">
+</head>
+<body class="panel">
+  <header class="top">
+    <div class="title-row">
+      <div class="problem">
+        <div id="p-title" class="p-title">No problem loaded</div>
+        <div id="p-sub" class="dim small"></div>
+      </div>
+      <button id="btn-options" class="icon-btn" title="Options" aria-label="Open options">⚙</button>
+    </div>
+
+    <div class="row">
+      <label class="small dim" for="lang">Language</label>
+      <select id="lang"></select>
+      <span id="lang-note" class="small dim"></span>
+    </div>
+
+    <table class="stats" aria-label="Groq usage">
+      <tr><th>Requests left today</th><td id="s-req">–</td></tr>
+      <tr><th>Tokens left this minute</th><td id="s-tok">–</td></tr>
+      <tr><th>This session</th><td id="s-sess">nothing yet</td></tr>
+    </table>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <section id="manual" class="manual" hidden>
+    <p class="small dim">Couldn’t read the page. Paste the problem statement (with examples and constraints) instead.</p>
+    <textarea id="manual-text" rows="5" placeholder="Paste the full problem statement"></textarea>
+    <button id="manual-go" class="btn">Use this statement</button>
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="hint" aria-selected="true">Hints</button>
+    <button role="tab" data-tab="solution" aria-selected="false">Solution</button>
+    <button role="tab" data-tab="debug" aria-selected="false">Debug</button>
+  </nav>
+
+  <main>
+    <section id="view-hint">
+      <div id="hint-list"></div>
+      <button id="hint-next" class="btn" data-run>Reveal hint 1 of 3</button>
+    </section>
+
+    <section id="view-solution" hidden>
+      <div class="btn-row">
+        <button id="sol-go" class="btn" data-run>Generate solution</button>
+        <button id="sol-regen" class="btn ghost" data-run hidden>Regenerate</button>
+        <button id="sol-copy" class="btn ghost" hidden>Copy final code</button>
+      </div>
+      <div id="sol-out" class="out"><div class="md"></div><div class="meta small dim"></div></div>
+    </section>
+
+    <section id="view-debug" hidden>
+      <label class="small dim" for="dbg-code">Your code</label>
+      <textarea id="dbg-code" rows="8" spellcheck="false" placeholder="Paste your solution"></textarea>
+      <label class="small dim" for="dbg-notes">Failing test case or error (optional)</label>
+      <textarea id="dbg-notes" rows="3" spellcheck="false" placeholder="Input, expected output, actual output, or the error message"></textarea>
+      <button id="dbg-go" class="btn" data-run>Find the bug</button>
+      <div id="dbg-out" class="out"><div class="md"></div><div class="meta small dim"></div></div>
+    </section>
+
+    <section id="retry" hidden>
+      <h3>Still failing?</h3>
+      <p class="small dim">Sends your feedback plus the last code back to the model.</p>
+      <textarea id="retry-input" rows="3" spellcheck="false" placeholder="Paste the failing test case or error from LeetCode"></textarea>
+      <button id="retry-go" class="btn" data-run>Send feedback</button>
+      <div id="retry-log"></div>
+    </section>
+  </main>
+
+  <div id="busybar" class="busybar" hidden>
+    <span class="small">Waiting on Groq</span>
+    <button id="stop" class="btn ghost">Stop</button>
+  </div>
+
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

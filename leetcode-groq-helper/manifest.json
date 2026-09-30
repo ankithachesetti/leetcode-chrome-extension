@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "LeetCode Groq Helper",
+  "version": "1.0.0",
+  "description": "Progressive hints, full solutions and debugging for LeetCode problems, powered by the Groq API.",
+  "minimum_chrome_version": "116",
+  "permissions": ["storage", "sidePanel", "scripting"],
+  "host_permissions": ["https://api.groq.com/*", "https://leetcode.com/*"],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/*"],
+      "js": ["content/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "side_panel": { "default_path": "panel/panel.html" },
+  "options_page": "options/options.html",
+  "action": { "default_title": "LeetCode Groq Helper" }
+}
